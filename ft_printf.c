@@ -1,6 +1,19 @@
-#include <stdio.h>
-# include <stdarg.h>
-#include "printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/15 23:21:42 by yusudemi          #+#    #+#             */
+/*   Updated: 2024/10/16 00:24:26 by yusudemi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdarg.h>
+#include "ft_printf.h"
+#include <stdbool.h>
+
 
 static void	ft_init_flags(t_flags *f)
 {
@@ -15,13 +28,16 @@ static void	ft_init_flags(t_flags *f)
 int	ft_printf(const char *format, ...)
 {
 	va_list			args;
-	t_print_data	p;
+	t_pdata			p;
 	t_flags			f;
 
 	if (!format || !(*format))
 		return (NULL);
 	va_start(args, format);
 	ft_init_flags(&f);
-	if (!get_printlen(format, args, &p))
-		return (0);
+	if (!ft_pre_print(format, args, &f, &p))
+	{
+		//printstr
+		return (false);
+	}
 }
