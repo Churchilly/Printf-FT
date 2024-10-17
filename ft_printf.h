@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:19:54 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/17 19:22:10 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/18 00:14:09 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_pdata
 }	t_pdata;
 
 int		ft_printf(const char *format, ...);
-bool	ft_pre_print(const char *format, va_list args, t_flags *f, t_pdata *p);
+bool	ft_pre_process(const char *format, va_list args, t_flags *f, t_pdata *p);
 bool	ft_get_flags(const char flag, t_flags *f);
 bool	ft_zero(t_flags *f);
 bool	ft_dot(t_flags *f);
@@ -46,7 +46,7 @@ bool	ft_intlen(int num, t_flags f, t_pdata *p);
 bool	ft_uintlen(unsigned int num, t_flags f, t_pdata *p);
 bool	ft_octallen(unsigned int oct, t_flags f, t_pdata *p);
 bool	ft_hexlen(unsigned long hex, t_flags f, t_pdata *p);
-bool	ft_print();
+bool	ft_process();
 bool	ft_create_print();
 bool	ft_print_print();
 //add ft_create print

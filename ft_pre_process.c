@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:20:16 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/17 19:12:26 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/18 00:13:53 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static bool	ft_is_valid_flag(const char c)
 		|| c == '7' || c == '8' || c == '9');
 }
 
-bool	ft_pre_print(const char *format, va_list args, t_flags *f, t_pdata *p)
+bool	ft_pre_process(const char *format, va_list args, t_flags *f, t_pdata *p)
 {
 	while (*format)
 	{

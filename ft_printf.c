@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:21:42 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/17 19:33:31 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/18 00:14:21 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int	ft_printf(const char *format, ...)
 		return (NULL);
 	va_start(args, format);
 	ft_init_flags(&f);
-	if (!ft_pre_print(format, args, &f, &p))
+	if (!ft_pre_process(format, args, &f, &p))
 	{
 		//printstr
 		return (false);
 	}
 	//p->print = malloc(p->len * char);
-	//ft_print(format, args, &p)
+	//ft_process(format, args, &p)
 }

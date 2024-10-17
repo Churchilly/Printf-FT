@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 00:52:49 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/17 19:26:54 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/18 00:10:56 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,16 @@ bool	ft_octallen(unsigned int oct, t_flags f, t_pdata *p)
 		oct /= 8;
 		len++;
 	}
+	if (f.hash)
+	{
+		len++;
+		f.width++;
+	}
 	if (f.width > len)
-		return (f.width);
-	return (len);
+		p->len += f.width;
+	else
+		p->len += len;
+	return (true);
 }
 
 bool	ft_hexlen(unsigned long hex, t_flags f, t_pdata *p)
@@ -80,7 +87,14 @@ bool	ft_hexlen(unsigned long hex, t_flags f, t_pdata *p)
 		hex /= 16;
 		len++;
 	}
+	if (f.hash)
+	{
+		len += 2;
+		f.width += 2;
+	}
 	if (f.width > len)
-		return (f.width);
-	return (len);
+		p->len += f.width;
+	else
+		p->len += len;
+	return (true);
 }
