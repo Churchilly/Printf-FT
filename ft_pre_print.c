@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:20:16 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/17 03:18:37 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:12:26 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ bool	ft_pre_print(const char *format, va_list args, t_flags *f, t_pdata *p)
 			{
 				if (!ft_is_valid_flag(*format))
 					return (false);
-				if (!ft_get_flags(*format, f, p))
+				if (!ft_get_flags(*format, f))
 					return (false);
 			}
-			if (ft_is_specifier(*format))
-				ft_get_speclen(*format, args, f, p);
-			else
+			if (!(*format))
+				return (false);
+			if (!ft_get_speclen(*format, args, f, p))
 				return (false);
 			format++;
 		}

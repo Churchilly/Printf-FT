@@ -6,14 +6,14 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 00:52:49 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/17 03:03:15 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:26:54 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "ft_printf.h"
 
-size_t	ft_intlen(int num, t_flags f)
+bool	ft_intlen(int num, t_flags f, t_pdata *p)
 {
 	size_t	len;
 
@@ -26,11 +26,13 @@ size_t	ft_intlen(int num, t_flags f)
 		len++;
 	}
 	if (f.width > len)
-		return (f.width);
-	return (len);
+		p->len += f.width;
+	else
+		p->len += len;
+	return (true);
 }
 
-size_t	ft_uintlen(unsigned int num, t_flags f)
+bool	ft_uintlen(unsigned int num, t_flags f, t_pdata *p)
 {
 	size_t	len;
 
@@ -43,11 +45,13 @@ size_t	ft_uintlen(unsigned int num, t_flags f)
 		len++;
 	}
 	if (f.width > len)
-		return (f.width);
-	return (len);
+		p->len += f.width;
+	else
+		p->len += len;
+	return (true);
 }
 
-size_t	ft_octallen(unsigned int oct, t_flags f)
+bool	ft_octallen(unsigned int oct, t_flags f, t_pdata *p)
 {
 	size_t	len;
 
@@ -64,7 +68,7 @@ size_t	ft_octallen(unsigned int oct, t_flags f)
 	return (len);
 }
 
-size_t	ft_hexlen(unsigned long hex, t_flags f)
+bool	ft_hexlen(unsigned long hex, t_flags f, t_pdata *p)
 {
 	size_t	len;
 

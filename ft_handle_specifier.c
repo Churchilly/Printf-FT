@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 23:49:47 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/17 03:25:22 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:12:26 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,64 @@
 #include <stdarg.h>
 #include "ft_printf.h"
 
-bool	ft_get_flags(const char flag, t_flags *f, t_pdata *p)
+static bool	ft_hash(t_flags *f)
 {
-	if (flag == '0' && f->width == 0 && f->zero == false)
-		return (ft_fzero());
-	else if (flag == '.')
-		return (ft_fdot());
-	else if (flag == '-')
-		return (ft_hyphen());
-	else if (flag == '#')
-		return (ft_hash());
-	else if (flag == ' ')
-		return (ft_space());
-	else if (flag == '+')
-		return (ft_plus());
-	else
-		return (ft_width());
+	f->hash = true;
+	return (true);
 }
 
-void	ft_get_speclen(const char spec, va_list args, t_flags *f, t_pdata *p)
+static bool	ft_space(t_flags *f)
+{
+	if (f->plus != true)
+		f->space = true;
+	return (true);
+}
+
+static bool	ft_plus(t_flags *f)
+{
+	f->space = false;
+	f->plus = true;
+	return (true);
+}
+
+bool	ft_get_flags(const char flag, t_flags *f)
+{
+	if (flag == '0' && f->width == 0 && f->dot == false && f->hyphen == false)
+		return (ft_zero(f));
+	else if (flag == '.')
+		return (ft_dot(f));
+	else if (flag == '-' && f->dot == false)
+		return (ft_hyphen(f));
+	else if (flag == '#')
+		return (ft_hash(f));
+	else if (flag == ' ')
+		return (ft_space(f));
+	else if (flag == '+')
+		return (ft_plus(f));
+	else
+		return (ft_width(flag, f));
+}
+
+bool	ft_get_speclen(const char spec, va_list args, t_flags *f, t_pdata *p)
 {
 	if (spec == 'd' || spec == 'i')
-		p->len += ft_intlen(va_arg(args, int), *f);
+		ft_intlen(va_arg(args, int), *f, p);
 	else if (spec == 'u')
-		p->len += ft_uintlen(va_arg(args, unsigned int), *f);
+		ft_uintlen(va_arg(args, unsigned int), *f, p);
 	else if (spec == 'o')
-		p->len += ft_octallen(va_arg(args, unsigned int), *f);
+		ft_octallen(va_arg(args, unsigned int), *f, p);
 	else if (spec == 'x' || spec == 'X')
-		p->len += ft_hexlen((unsigned long)va_arg(args, unsigned int), *f);
+		ft_hexlen((unsigned long)va_arg(args, unsigned int), *f, p);
 	else if (spec == 'c' || spec == '%')
-		p->len += ft_charlen(*f);
+		ft_charlen(*f, p);
 	else if (spec == 's')
-		p->len += ft_strlen(va_arg(args, char *), *f);
+		ft_strlen(va_arg(args, char *), *f, p);
 	else if (spec == 'p')
-		p->len += ft_hexlen((unsigned long)va_arg(args, void *), *f);
+		ft_hexlen((unsigned long)va_arg(args, void *), *f, p);
 	else if (spec == 'f' || spec == 'F' || spec == 'g' || spec == 'G')
-		p->len += ft_floatlen(va_arg(args, double), *f);
+		ft_floatlen(va_arg(args, double), *f, p);
 	else if (spec == 'e' || spec == 'E')
-		p->len += ft_scilen(va_arg(args, double), *f);
+		ft_scilen(va_arg(args, double), *f, p);
 	else if (spec == 'a' || spec == 'A')
-		p->len += ft_hexfloatlen(va_arg(args, double), *f);
+		ft_hexfloatlen(va_arg(args, double), *f, p);
 }

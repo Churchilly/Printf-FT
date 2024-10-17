@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:21:42 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/17 01:20:16 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:33:31 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,6 @@ int	ft_printf(const char *format, ...)
 		//printstr
 		return (false);
 	}
+	//p->print = malloc(p->len * char);
+	//ft_print(format, args, &p)
 }

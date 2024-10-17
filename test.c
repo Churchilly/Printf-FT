@@ -24,4 +24,23 @@ int main()
 	printf("test hash x char: %#c\n", 'a');				// test hash x char: a
 	printf("test zero x char: %05c\n", 'a');			// test zero x char:     a// :D? feels buggy
 	printf("test hyphen x char: %-5cx\n", 'a');			// test hyphen x char: a    x
+
+	printf("test double zero: %00d\n", 42);				// test double zero: 42
+	printf("test double dot: %..5d\n", 42);				// test double dot: %.0.5d
+	printf("test double hyphen: %--d\n", 42);			// test double hyphen: 42
+
+	printf("test double dot: %010.5d\n", 42);				// 
+
+	printf("test double dot: %.10-5d\n", 42);
+	printf("test double dot: %010-5d\n", 42);
+
+	printf("test double hash: %##f\n", 42.0);
+	printf("test double dot: %# f\n", 42.0);
+	printf("test double dot: %#+ f\n", 42.0);
+
+	printf("test double space: %  f\n", 42.0);
+	printf("test double dot: % #f\n", 42.0);
+	printf("test double dot: % + f\n", 42.0);
+	printf("test double dot: % +#f\n", 42.0);
+	printf("test double dot: %+d\n", 42);
 }
