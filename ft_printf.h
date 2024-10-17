@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:19:54 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/18 00:14:09 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/18 00:17:28 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ bool	ft_intlen(int num, t_flags f, t_pdata *p);
 bool	ft_uintlen(unsigned int num, t_flags f, t_pdata *p);
 bool	ft_octallen(unsigned int oct, t_flags f, t_pdata *p);
 bool	ft_hexlen(unsigned long hex, t_flags f, t_pdata *p);
+
+
+
 bool	ft_process();
 bool	ft_create_print();
 bool	ft_print_print();

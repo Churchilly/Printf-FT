@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 23:49:47 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/17 19:12:26 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/18 00:32:42 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,12 @@ bool	ft_get_speclen(const char spec, va_list args, t_flags *f, t_pdata *p)
 		ft_octallen(va_arg(args, unsigned int), *f, p);
 	else if (spec == 'x' || spec == 'X')
 		ft_hexlen((unsigned long)va_arg(args, unsigned int), *f, p);
-	else if (spec == 'c' || spec == '%')
+	else if (spec == 'c')
 		ft_charlen(*f, p);
 	else if (spec == 's')
 		ft_strlen(va_arg(args, char *), *f, p);
+	else if (spec == '%')
+		p->len += 1;
 	else if (spec == 'p')
 		ft_hexlen((unsigned long)va_arg(args, void *), *f, p);
 	else if (spec == 'f' || spec == 'F' || spec == 'g' || spec == 'G')

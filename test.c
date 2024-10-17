@@ -43,4 +43,28 @@ int main()
 	printf("test double dot: % + f\n", 42.0);
 	printf("test double dot: % +#f\n", 42.0);
 	printf("test double dot: %+d\n", 42);
+
+	printf("test percent1: %.5%\n", 42);
+	printf("test percent2: %05%\n", 42);
+	printf("test percent3: %-5%x\n", 42);
+	printf("test percent4: %#%\n", 42);
+	printf("test percent5: %+%\n", 42);
+	printf("test percent6: % %\n", 42);
+
+	printf("test percent1: %.5c\n", 'f');
+	printf("test percent2: %05c\n", 'f');
+	printf("test percent3: %-5cx\n", 'f');
+	printf("test percent4: %#c\n", 'f');
+	printf("test percent5: %+c\n", 'f');
+	printf("test percent6: % c\n", 'f');
+	printf("test percent1: %5c\n", 'f');
+
+	printf("test str1: %.5s\n", "duck");
+	printf("test str2: %05s\n", "duck");
+	printf("test str3: %-5sx\n", "duck");
+	printf("test str4: %#s\n", "duck");
+	printf("test str5: %+5s\n", "duck");
+	printf("test str6: % 5s\n", "duck");
+	printf("test str7: %3s\n", "duck");
+	printf("test str1: %0-5sx\n", "duck");
 }
