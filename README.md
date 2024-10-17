@@ -205,6 +205,8 @@ Here is a breakdown of the components:
 - **`[length]`**: Optional length modifier (e.g., `l` for `long`).
 - **`specifier`**: The type of data to be printed (e.g., `d` for integers, `f` for floating-point numbers, `s` for strings).
 
+		**`[.precision] > [-hypen] > [0zero]`**
+
 ### Expanded Examples with All Combinations of Flags
 
 #### Integer Conversions (`%d`, `%i`)
