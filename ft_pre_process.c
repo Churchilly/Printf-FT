@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pre_print.c                                     :+:      :+:    :+:   */
+/*   ft_pre_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:20:16 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/18 00:13:53 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/20 02:13:56 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ bool	ft_pre_process(const char *format, va_list args, t_flags *f, t_pdata *p)
 {
 	while (*format)
 	{
+		if (!ft_add_to_print(*format, &p))
+			return (false);
 		if (*format == '%')
 		{
 			ft_reset_flags(&f);
@@ -57,9 +59,7 @@ bool	ft_pre_process(const char *format, va_list args, t_flags *f, t_pdata *p)
 				if (!ft_get_flags(*format, f))
 					return (false);
 			}
-			if (!(*format))
-				return (false);
-			if (!ft_get_speclen(*format, args, f, p))
+			if (!ft_add_specstr(*format, args, f, p))
 				return (false);
 			format++;
 		}

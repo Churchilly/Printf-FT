@@ -6,14 +6,14 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 00:52:49 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/18 00:10:56 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/20 02:43:11 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "ft_printf.h"
 
-bool	ft_intlen(int num, t_flags f, t_pdata *p)
+size_t	ft_intlen(int num, t_flags f)
 {
 	size_t	len;
 
@@ -26,10 +26,26 @@ bool	ft_intlen(int num, t_flags f, t_pdata *p)
 		len++;
 	}
 	if (f.width > len)
-		p->len += f.width;
+		return (f.width);
 	else
-		p->len += len;
-	return (true);
+		return (len);
+}
+
+bool	ft_add_int(int num, t_flags f, t_pdata *p)
+{
+	size_t	len;
+	char	*buff;
+	
+	len = ft_intlen(num, f);
+	buff = malloc((len + 1) * sizeof(char));
+	if (!buff)
+		return (false);
+	if (f.width)
+		if (!ft_add_padding(buff, f)) //add pad according to flags
+			return (false);
+	//add sign if exist
+	//num to str then add to print
+	//return (true);
 }
 
 bool	ft_uintlen(unsigned int num, t_flags f, t_pdata *p)
