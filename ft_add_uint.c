@@ -1,52 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_add_uint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 16:22:32 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:58:10 by yusudemi         ###   ########.fr       */
+/*   Created: 2024/10/21 17:49:43 by yusudemi          #+#    #+#             */
+/*   Updated: 2024/10/25 00:28:58 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <unistd.h>
 #include <stdlib.h>
 
-static void	ft_init_pdata(t_pdata *p)
-{
-	p->toprint = NULL;
-	p->len = 0;
-}
-
-static size_t	ft_strlen(const char *str)
+static size_t	ft_uintlen(unsigned int num)
 {
 	size_t	len;
 
 	len = 0;
-	while (str[len])
+	if (num == 0)
 		len++;
+	while (num)
+	{
+		num /= 10;
+		len++;
+	}
 	return (len);
 }
 
-int	ft_printf(const char *format, ...)
+bool	ft_add_uint(unsigned int n, t_pdata *p)
 {
-	va_list	args;
-	t_pdata	p;
+	size_t	len;
+	size_t	i;
+	char	*strnum;
 
-	if (!(format))
-		return (ERROR);
-	va_start(args, format);
-	ft_init_pdata(&p);
-	if (!(ft_preprocess(format, args, &p)))
+	len = ft_uintlen(n);
+	strnum = malloc((sizeof(char)) * len + 1);
+	if (!strnum)
+		return (false);
+	if (n == 0)
+		strnum[0] = '0';
+	i = len - 1;
+	while (n)
 	{
-		free(p.toprint);
-		write(1, format, ft_strlen(format));
-		return (ERROR);
+		strnum[i--] = "0123456789"[n % 10];
+		n = n / 10;
 	}
-	write(1, p.toprint, p.len);
-	va_end(args);
-	free(p.toprint);
-	return (p.len);
+	strnum[len] = '\0';
+	if (!ft_add_toprint(strnum, p))
+		return (false);
+	p->len += len;
+	free(strnum);
+	return (true);
 }

@@ -1,56 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_to_print.c                                  :+:      :+:    :+:   */
+/*   ft_add_toprint.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 00:35:45 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/20 02:25:27 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/24 19:56:55 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "ft_printf.h"
+#include <stdlib.h>
 
-static char	*ft_strpercnt(const char *s)
+static char	*ft_strend(const char *s)
 {
 	while (*s)
 	{
 		if (*s == '%')
-			return (char *)s;
+			return ((char *)s);
 		s++;
 	}
 	return ((char *)s);
 }
 
-static char	*ft_strnjoin(const char *str1, const char *str2, size_t n)
+static char	*ft_strnjoin(const char *str1, const char *str2,
+							size_t len_str1, size_t size)
 {
 	char	*res;
-	size_t	len1;
-	size_t	len2;
+	char	*ptr;
 
-	res = malloc((len1 + len2 + 1) * sizeof(char));
+	res = malloc((len_str1 + size + 1) * sizeof(char));
 	if (!res)
 		return (false);
-	while (*str1)
-		*res++ = *str1++;
-	while (len2--)
-		*res++ = *str2++;
-	*res = '\0';
-	//maybe need to free(str1);
+	ptr = res;
+	while (str1 && *str1)
+		*ptr++ = *str1++;
+	while (size--)
+		*ptr++ = *str2++;
+	*ptr = '\0';
 	return (res);
 }
 
-bool	ft_add_to_print(const char *str, t_pdata *p)
+bool	ft_add_toprint(const char *str, t_pdata *p)
 {
-	const char	*percent_pos;
+	const char	*end_pos;
 	size_t		len;
+	char		*tmp;
 
-	percent_pos = ft_strpercnt(str);
-	len = percent_pos - str;
-	p->print = ft_strnjoin(p->print, str, len);
-	if (!p->print)
+	end_pos = ft_strend(str);
+	len = end_pos - str;
+	tmp = ft_strnjoin(p->toprint, str, p->len, len);
+	if (!tmp)
 		return (false);
+	if (p->toprint)
+		free(p->toprint);
+	p->toprint = tmp;
 	return (true);
 }
