@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:16:54 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:53:29 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/26 23:59:41 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,12 @@ size_t	ft_hexlen(unsigned int hex)
 	return (len);
 }
 
-bool	ft_add_hex(unsigned int hex, t_pdata *p, const char spec)
+static void	ft_create_strhex(char *strhex, unsigned int hex,
+								char *hexset, size_t len)
 {
-	size_t	len;
 	size_t	i;
-	char	*strhex;
-	char	*hexset;
 
-	len = ft_hexlen(hex);
-	strhex = malloc(sizeof(char) * len + 1);
 	i = len - 1;
-	if (spec == 'x')
-		hexset = "0123456789abcdef";
-	else
-		hexset = "0123456789ABCDEF";
 	if (hex == 0)
 		strhex[0] = '0';
 	while (hex)
@@ -50,9 +42,28 @@ bool	ft_add_hex(unsigned int hex, t_pdata *p, const char spec)
 		hex /= 16;
 	}
 	strhex[len] = '\0';
+}
+
+bool	ft_add_hex(unsigned int hex, t_pdata *p, const char spec)
+{
+	size_t	len;
+	char	*strhex;
+	char	*hexset;
+
+	len = ft_hexlen(hex);
+	strhex = malloc(sizeof(char) * (len + 1));
+	if (!strhex)
+		return (false);
+	if (spec == 'x')
+		hexset = "0123456789abcdef";
+	else
+		hexset = "0123456789ABCDEF";
+	ft_create_strhex(strhex, hex, hexset, len);
 	if (!ft_add_toprint(strhex, p))
 		return (false);
 	p->len += len;
 	free(strhex);
 	return (true);
 }
+
+// printf(%d%s%x)

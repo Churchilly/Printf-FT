@@ -1,12 +1,11 @@
 NAME = libftprintf.a
-CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 AR = ar -rcs
 RM = rm -rf
 
 SRCS =	ft_printf.c			\
 		ft_preprocess.c		\
 		ft_add_toprint.c	\
-		ft_handle_arg.c		\
 		ft_add_char.c		\
 		ft_add_str.c		\
 		ft_add_int.c		\

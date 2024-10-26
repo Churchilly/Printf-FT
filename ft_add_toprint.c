@@ -6,11 +6,10 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 00:35:45 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/24 19:56:55 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/26 20:51:26 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
 #include "ft_printf.h"
 #include <stdlib.h>
 

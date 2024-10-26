@@ -6,13 +6,12 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:22:32 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:58:10 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:37:36 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <unistd.h>
-#include <stdlib.h>
 
 static void	ft_init_pdata(t_pdata *p)
 {
@@ -41,8 +40,9 @@ int	ft_printf(const char *format, ...)
 	ft_init_pdata(&p);
 	if (!(ft_preprocess(format, args, &p)))
 	{
-		free(p.toprint);
 		write(1, format, ft_strlen(format));
+		if (p.toprint)
+			free(p.toprint);
 		return (ERROR);
 	}
 	write(1, p.toprint, p.len);

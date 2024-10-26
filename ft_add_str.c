@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:09:25 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/25 02:07:17 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/26 23:05:51 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool	ft_add_str(char *str, t_pdata *p)
 		tmp = ft_strjoin(p->toprint, str, p->len, ft_strlen(str));
 		p->len += ft_strlen(str);
 	}
-	if (!p->toprint)
+	if (!tmp)
 		return (false);
 	if (p->toprint)
 		free(p->toprint);

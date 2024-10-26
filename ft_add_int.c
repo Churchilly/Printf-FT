@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 17:30:45 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/25 00:22:51 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/10/26 23:28:35 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,6 @@ static void	ft_itostr(char *strnum, unsigned int num, size_t len)
 {
 	size_t	i;
 
-	if (num < 0)
-	{
-		strnum[0] = '-';
-		num = -num;
-	}
 	if (num == 0)
 		strnum[0] = '0';
 	i = len - 1;
@@ -60,7 +55,7 @@ bool	ft_add_int(int n, t_pdata *p)
 	len = ft_intlen(n);
 	strnum = malloc((sizeof(char)) * len + 1);
 	if (!strnum)
-		return (NULL);
+		return (false);
 	if (n < 0)
 	{
 		strnum[0] = '-';
