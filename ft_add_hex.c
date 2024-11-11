@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:16:54 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/11 17:24:10 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:26:36 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_add_hex(unsigned int hex, t_pdata *p, const char spec)
 	else
 		hexset = "0123456789ABCDEF";
 	ft_create_strhex(strhex, hex, hexset, len);
-	if (!ft_add_toprint(strhex, p))
+	if (ft_add_toprint(strhex, p) == ERROR)
 		return (ERROR);
 	p->len += len;
 	free(strhex);

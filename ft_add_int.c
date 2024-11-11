@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 17:30:45 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/11 16:56:19 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:31:00 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ int	ft_add_int(int n, t_pdata *p)
 	else
 		num = n;
 	ft_itostr(strnum, num, len);
-	if (!strnum)
-		return (ERROR);
-	if (!ft_add_toprint(strnum, p))
+	if (ft_add_toprint(strnum, p) == ERROR)
 		return (ERROR);
 	p->len += len;
 	free(strnum);

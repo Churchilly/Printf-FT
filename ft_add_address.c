@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:35:15 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/11 17:36:33 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:26:21 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_add_address(unsigned long address, t_pdata *p)
 		address /= 16;
 	}
 	stradrs[len + 2] = '\0';
-	if (!ft_add_toprint(stradrs, p))
+	if (ft_add_toprint(stradrs, p) == ERROR)
 		return (ERROR);
 	p->len += len + 2;
 	free(stradrs);

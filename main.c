@@ -35,9 +35,13 @@ int main()
 	printf("return o:%d\n", printf("o: %X\n", NULL));
 	printf("return r:%d\n", ft_printf("r: %p\n", NULL));
 	printf("return o:%d\n", printf("o: %p\n", NULL));
-	printf("return r:%d\n", ft_printf("r: %k\n", NULL));
-	printf("return o:%d\n", printf("o: %k\n", NULL));
+	printf("return r:%d\n", ft_printf("r: %?\n", NULL));
+	printf("return o:%d\n", printf("o: %?\n", NULL));
 
 	printf("return r:%d\n", ft_printf(NULL, NULL));
 	printf("return o:%d\n", printf(NULL, NULL));
+
+	printf("return r:%d\n", ft_printf("%"));
+	printf("return r:%d\n", printf("%"));
+
 }

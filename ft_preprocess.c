@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:28:50 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/11 16:59:23 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:36:54 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	ft_handle_arg(const char spec, va_list args, t_pdata *p)
 {
 	int	ret;
 
+	if (!spec)
+		return (ERROR);
 	ret = STDERR;
 	if (spec == 'd' || spec == 'i')
 		ret = ft_add_int(va_arg(args, int), p);
@@ -43,12 +45,12 @@ int	ft_preprocess(const char *format, va_list args, t_pdata *p)
 	while (*format)
 	{
 		if (!(is_added))
-			if (!ft_add_toprint(format, p))
+			if (ft_add_toprint(format, p) == ERROR)
 				return (ERROR);
 		is_added = 1;
 		if (*format == '%')
 		{
-			ret = ft_handle_arg(*++format, args, p);
+			ret = ft_handle_arg(*(++format), args, p);
 			if (ret == STDERR)
 				return (STDERR);
 			else if (ret == ERROR)
