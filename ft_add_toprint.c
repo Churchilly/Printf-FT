@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 00:35:45 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/26 20:51:26 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:57:07 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*ft_strnjoin(const char *str1, const char *str2,
 
 	res = malloc((len_str1 + size + 1) * sizeof(char));
 	if (!res)
-		return (false);
+		return (NULL);
 	ptr = res;
 	while (str1 && *str1)
 		*ptr++ = *str1++;
@@ -42,7 +42,7 @@ static char	*ft_strnjoin(const char *str1, const char *str2,
 	return (res);
 }
 
-bool	ft_add_toprint(const char *str, t_pdata *p)
+int	ft_add_toprint(const char *str, t_pdata *p)
 {
 	const char	*end_pos;
 	size_t		len;
@@ -52,9 +52,9 @@ bool	ft_add_toprint(const char *str, t_pdata *p)
 	len = end_pos - str;
 	tmp = ft_strnjoin(p->toprint, str, p->len, len);
 	if (!tmp)
-		return (false);
+		return (ERROR);
 	if (p->toprint)
 		free(p->toprint);
 	p->toprint = tmp;
-	return (true);
+	return (STDOUT);
 }

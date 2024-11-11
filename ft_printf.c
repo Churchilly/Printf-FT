@@ -6,12 +6,13 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:22:32 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/27 00:37:36 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:36:06 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 static void	ft_init_pdata(t_pdata *p)
 {
@@ -19,31 +20,34 @@ static void	ft_init_pdata(t_pdata *p)
 	p->len = 0;
 }
 
-static size_t	ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
-	size_t	len;
+	const char	*p;
 
-	len = 0;
-	while (str[len])
-		len++;
-	return (len);
+	p = str;
+	while (*p)
+		p++;
+	return (p - str);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	t_pdata	p;
+	int		ret;
 
 	if (!(format))
 		return (ERROR);
 	va_start(args, format);
 	ft_init_pdata(&p);
-	if (!(ft_preprocess(format, args, &p)))
+	ret = ft_preprocess(format, args, &p);
+	if (ret == ERROR)
+		return (ERROR);
+	else if (ret == STDERR)
 	{
-		write(1, format, ft_strlen(format));
 		if (p.toprint)
 			free(p.toprint);
-		return (ERROR);
+		return (write(STDERR, format, ft_strlen(format)));
 	}
 	write(1, p.toprint, p.len);
 	va_end(args);

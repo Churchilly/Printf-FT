@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:16:54 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/26 23:59:41 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:24:10 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_create_strhex(char *strhex, unsigned int hex,
 	strhex[len] = '\0';
 }
 
-bool	ft_add_hex(unsigned int hex, t_pdata *p, const char spec)
+int	ft_add_hex(unsigned int hex, t_pdata *p, const char spec)
 {
 	size_t	len;
 	char	*strhex;
@@ -53,17 +53,15 @@ bool	ft_add_hex(unsigned int hex, t_pdata *p, const char spec)
 	len = ft_hexlen(hex);
 	strhex = malloc(sizeof(char) * (len + 1));
 	if (!strhex)
-		return (false);
+		return (ERROR);
 	if (spec == 'x')
 		hexset = "0123456789abcdef";
 	else
 		hexset = "0123456789ABCDEF";
 	ft_create_strhex(strhex, hex, hexset, len);
 	if (!ft_add_toprint(strhex, p))
-		return (false);
+		return (ERROR);
 	p->len += len;
 	free(strhex);
-	return (true);
+	return (STDOUT);
 }
-
-// printf(%d%s%x)

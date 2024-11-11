@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:35:15 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/24 20:53:44 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:36:33 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,29 @@ size_t	ft_addresslen(unsigned long address)
 	return (len);
 }
 
-bool	ft_add_address(unsigned long address, t_pdata *p)
+static int	ft_nil(t_pdata *p)
+{
+	if (ft_add_toprint("(nil)", p) == ERROR)
+		return (ERROR);
+	p->len += 5;
+	return (STDOUT);
+}
+
+int	ft_add_address(unsigned long address, t_pdata *p)
 {
 	size_t	len;
 	size_t	i;
 	char	*stradrs;
 
+	if (!address)
+		return (ft_nil(p));
 	len = ft_addresslen(address);
 	stradrs = malloc(sizeof(char) * len + 3);
 	if (!stradrs)
-		return (false);
+		return (ERROR);
 	stradrs[0] = '0';
 	stradrs[1] = 'x';
 	i = len + 1;
-	if (address == 0)
-		stradrs[2] = '0';
 	while (address)
 	{
 		stradrs[i--] = "0123456789abcdef"[address % 16];
@@ -50,8 +58,8 @@ bool	ft_add_address(unsigned long address, t_pdata *p)
 	}
 	stradrs[len + 2] = '\0';
 	if (!ft_add_toprint(stradrs, p))
-		return (false);
+		return (ERROR);
 	p->len += len + 2;
 	free(stradrs);
-	return (true);
+	return (STDOUT);
 }

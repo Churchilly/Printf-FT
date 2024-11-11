@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:09:25 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/26 23:05:51 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:56:13 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*ft_strjoin(char *str1, char *str2, size_t len1, size_t len2)
 	return (res);
 }
 
-bool	ft_add_str(char *str, t_pdata *p)
+int	ft_add_str(char *str, t_pdata *p)
 {
 	char	*tmp;
 
@@ -55,9 +55,9 @@ bool	ft_add_str(char *str, t_pdata *p)
 		p->len += ft_strlen(str);
 	}
 	if (!tmp)
-		return (false);
+		return (ERROR);
 	if (p->toprint)
 		free(p->toprint);
 	p->toprint = tmp;
-	return (true);
+	return (STDOUT);
 }

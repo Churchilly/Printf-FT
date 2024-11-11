@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 17:49:43 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/25 00:28:58 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:53:02 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static size_t	ft_uintlen(unsigned int num)
 	return (len);
 }
 
-bool	ft_add_uint(unsigned int n, t_pdata *p)
+int	ft_add_uint(unsigned int n, t_pdata *p)
 {
 	size_t	len;
 	size_t	i;
@@ -37,7 +37,7 @@ bool	ft_add_uint(unsigned int n, t_pdata *p)
 	len = ft_uintlen(n);
 	strnum = malloc((sizeof(char)) * len + 1);
 	if (!strnum)
-		return (false);
+		return (ERROR);
 	if (n == 0)
 		strnum[0] = '0';
 	i = len - 1;
@@ -48,8 +48,8 @@ bool	ft_add_uint(unsigned int n, t_pdata *p)
 	}
 	strnum[len] = '\0';
 	if (!ft_add_toprint(strnum, p))
-		return (false);
+		return (ERROR);
 	p->len += len;
 	free(strnum);
-	return (true);
+	return (STDOUT);
 }
