@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 23:50:24 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/14 18:43:02 by yusudemi         ###   ########.fr       */
+/*   Created: 2024/10/21 18:57:36 by yusudemi          #+#    #+#             */
+/*   Updated: 2024/11/11 17:37:11 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,26 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include <stdbool.h>
 # include <stddef.h>
 
-typedef struct s_flags
-{
-	bool			hyphen;
-	bool			zero;
-	bool			dot;
-	bool			hash;
-	bool			space;
-	bool			plus;
-	int				width;
-}	t_flags;
+# define ERROR -1
+# define STDOUT 1
+# define STDERR 2
 
-int		ft_printf(const char *format, ...);
-bool	ft_get_flags(char flag, t_flags *f);
-int		ft_print_flag(char flag, int len);
-int		ft_print_char(int c, t_flags *f);
-int		ft_print_str(char *str, t_flags *f);
-int		ft_print_int(int num, t_flags *f);
-int		ft_print_uint(unsigned int num, t_flags *f);
-int		ft_print_hex(unsigned int hex, char spec, t_flags *f);
-int		ft_print_address(unsigned int address, t_flags *f);
+typedef struct s_pdata
+{
+	char	*toprint;
+	size_t	len;
+}	t_pdata;
+
+int	ft_printf(const char *format, ...);
+int	ft_preprocess(const char *format, va_list args, t_pdata *p);
+int	ft_add_toprint(const char *format, t_pdata *p);
+int	ft_add_int(int n, t_pdata *p);
+int	ft_add_uint(unsigned int n, t_pdata *p);
+int	ft_add_hex(unsigned int hex, t_pdata *p, const char spec);
+int	ft_add_char(int c, t_pdata *p);
+int	ft_add_str(char *str, t_pdata *p);
+int	ft_add_address(unsigned long address, t_pdata *p);
 
 #endif

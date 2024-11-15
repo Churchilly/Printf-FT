@@ -5,97 +5,52 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 23:50:21 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/14 19:14:17 by yusudemi         ###   ########.fr       */
+/*   Created: 2024/10/21 16:22:32 by yusudemi          #+#    #+#             */
+/*   Updated: 2024/11/11 17:36:06 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <unistd.h>
+#include <stdlib.h>
 
-static void	ft_reset_flags(t_flags *f)
+static void	ft_init_pdata(t_pdata *p)
 {
-	f->hyphen = false;
-	f->zero = false;
-	f->dot = false;
-	f->hash = false;
-	f->space = false;
-	f->plus = false;
-	f->width = 0;
+	p->toprint = NULL;
+	p->len = 0;
 }
 
-static int	ft_print_format(const char *format)
+size_t	ft_strlen(const char *str)
 {
 	const char	*p;
 
-	p = format;
-	while (*p != '%' && *p != '\0')
+	p = str;
+	while (*p)
 		p++;
-	write(1, format, p - format);
-	return (format - p);
-}
-
-static int	ft_print_arg(va_list args, char spec, t_flags *f)
-{
-	int	ret;
-
-	ret = -1;
-	if (spec == 'd' || spec == 'i')
-		ret = ft_print_int(va_arg(args, int), f);
-	else if (spec == 'u')
-		ret = ft_print_uint(va_arg(args, unsigned int), f);
-	else if (spec == 'x' || spec == 'X')
-		ret = ft_print_hex(va_arg(args, unsigned int), spec, f);
-	else if (spec == 'c')
-		ret = ft_print_char(va_arg(args, int), f);
-	else if (spec == 's')
-		ret = ft_print_str(va_arg(args, char *), f);
-	else if (spec == '%')
-		ret = ft_print_char('%', f);
-	else if (spec == 'p')
-		ret = ft_print_address((unsigned long)va_arg(args, void *), f);
-	return (ret);
-}
-
-static int	ft_process(const char *format, va_list args, t_flags *f)
-{
-	bool	is_added;
-	int		len;
-	int		ret;
-
-	len = 0;
-	is_added = 0;
-	while (*format)
-	{
-		ft_reset_flags(f);
-		if (!is_added)
-			ret += ft_print_format(format);
-		is_added = 1;
-		if (*format == '%')
-		{
-			while (ft_get_flags(*(++format), f))
-				;
-			ret = ft_print_arg(args, *format, f);
-			if (ret == -1)
-				return (-1);
-			len += ret - 1;
-		}
-		len++;
-		format++;
-	}
-	return (len);
+	return (p - str);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
+	t_pdata	p;
 	int		ret;
-	t_flags	f;
 
-	if (!format)
-		return (-1);
+	if (!(format))
+		return (ERROR);
 	va_start(args, format);
-	ret = ft_process(format, args, &f);
+	ft_init_pdata(&p);
+	ret = ft_preprocess(format, args, &p);
+	if (ret == ERROR)
+		return (ERROR);
+	else if (ret == STDERR)
+	{
+		if (p.toprint)
+			free(p.toprint);
+		return (write(STDERR, format, ft_strlen(format)));
+	}
+	write(1, p.toprint, p.len);
 	va_end(args);
-	return (ret);
+	free(p.toprint);
+	return (p.len);
 }
