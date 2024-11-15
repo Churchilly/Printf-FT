@@ -1,17 +1,16 @@
 NAME = libftprintf.a
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -fPIE
 AR = ar -rcs
 RM = rm -rf
 
 SRCS =	ft_printf.c			\
-		ft_preprocess.c		\
-		ft_add_toprint.c	\
-		ft_add_char.c		\
-		ft_add_str.c		\
-		ft_add_int.c		\
-		ft_add_uint.c		\
-		ft_add_hex.c		\
-		ft_add_address.c	\
+		ft_flags.c			\
+		ft_print_char.c		\
+		ft_print_str.c		\
+		ft_print_int.c		\
+		ft_print_uint.c		\
+		ft_print_hex.c		\
+		ft_print_address.c	\
 
 OBJ = $(SRCS:.c=.o)
 
