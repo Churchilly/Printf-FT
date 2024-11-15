@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/15 17:19:54 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/10/20 02:13:49 by yusudemi         ###   ########.fr       */
+/*   Created: 2024/11/13 23:50:24 by yusudemi          #+#    #+#             */
+/*   Updated: 2024/11/14 18:43:02 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include <unistd.h>
 # include <stdbool.h>
+# include <stddef.h>
 
 typedef struct s_flags
 {
@@ -25,36 +25,17 @@ typedef struct s_flags
 	bool			hash;
 	bool			space;
 	bool			plus;
-	unsigned int	width;
+	int				width;
 }	t_flags;
 
-typedef struct s_pdata
-{
-	char	*print;
-	size_t	len;
-}	t_pdata;
-
 int		ft_printf(const char *format, ...);
-bool	ft_pre_process(const char *format, va_list args, t_flags *f, t_pdata *p);
-bool	ft_add_to_print(const char *str, t_pdata *p);
-bool	ft_get_flags(const char flag, t_flags *f);
-bool	ft_zero(t_flags *f);
-bool	ft_dot(t_flags *f);
-bool	ft_hyphen(t_flags *f);
-bool	ft_width(char flag, t_flags *f);
-bool	ft_add_specstr(const char spec, va_list args, t_flags *f, t_pdata *p);
-bool	ft_intlen(int num, t_flags f, t_pdata *p);
-bool	ft_uintlen(unsigned int num, t_flags f, t_pdata *p);
-bool	ft_octallen(unsigned int oct, t_flags f, t_pdata *p);
-bool	ft_hexlen(unsigned long hex, t_flags f, t_pdata *p);
+bool	ft_get_flags(char flag, t_flags *f);
+int		ft_print_flag(char flag, int len);
+int		ft_print_char(int c, t_flags *f);
+int		ft_print_str(char *str, t_flags *f);
+int		ft_print_int(int num, t_flags *f);
+int		ft_print_uint(unsigned int num, t_flags *f);
+int		ft_print_hex(unsigned int hex, char spec, t_flags *f);
+int		ft_print_address(unsigned int address, t_flags *f);
 
-
-
-bool	ft_process();
-bool	ft_create_print();
-bool	ft_print_print();
-//add ft_create print
-//add ft_handlers
-//add ft_print
-
-# endif
+#endif
