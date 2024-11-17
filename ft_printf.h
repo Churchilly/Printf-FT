@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 23:50:24 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/14 18:43:02 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:04:18 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 typedef struct s_flags
 {
+	bool			err_hyphen;
+	bool			err_dot;
 	bool			hyphen;
 	bool			zero;
 	bool			dot;
@@ -36,6 +38,6 @@ int		ft_print_str(char *str, t_flags *f);
 int		ft_print_int(int num, t_flags *f);
 int		ft_print_uint(unsigned int num, t_flags *f);
 int		ft_print_hex(unsigned int hex, char spec, t_flags *f);
-int		ft_print_address(unsigned int address, t_flags *f);
+int		ft_print_address(unsigned long address, t_flags *f);
 
 #endif

@@ -1,15 +1,14 @@
 #include "ft_printf.h"
 #include <stdio.h>
-
+#include <limits.h>
 int main()
-{
-
-/*
+{	
+/* 	
 	// test str
 	printf("[%d]\n", ft_printf("%s", "duck1")); // %s
 	printf("[%d]\n", printf("%s", "duck1"));
 	printf("[%d]\n", ft_printf("%s", NULL)); // %s
-	printf("[%d]\n", printf("%s", NULL)); // %s
+	printf("[%d]\n", printf("%s", NULL));
 	printf("[%d]\n", ft_printf("%.3s", "duck2")); // flag -> dot
 	printf("[%d]\n", printf("%.3s", "duck2"));
 	printf("[%d]\n", ft_printf("%.6s", "duck2")); // flag -> dot
@@ -52,12 +51,14 @@ int main()
 	printf("[%d]\n", printf("%.0-7s", "duck20"));
 	printf("[%d]\n", ft_printf("%.-07s", "duck21")); // flag -> dot + hyphen + zero {fuck}
 	printf("[%d]\n", printf("%.-07s", "duck21"));
+	printf("[%d]\n", ft_printf("long%sstring%sabc", "duck22", "duck23")); // %s
+	printf("[%d]\n", printf("long%sstring%sabc", "duck22", "duck23")); // %s
 
 	// test char
 	printf("[%d]\n", ft_printf("%c", 'd')); // %c
 	printf("[%d]\n", printf("%c", 'd'));
 	printf("[%d]\n", ft_printf("%c", NULL)); // %c
-	printf("[%d]\n", printf("%c", NULL)); // %c
+	printf("[%d]\n", printf("%c", NULL));
 	printf("[%d]\n", ft_printf("%.0c", 'u')); // flag -> dot
 	printf("[%d]\n", printf("%.0c", 'u'));
 	printf("[%d]\n", ft_printf("%.6c", 'c')); // flag -> dot
@@ -100,13 +101,12 @@ int main()
 	printf("[%d]\n", printf("%.0-7c", 'h'));
 	printf("[%d]\n", ft_printf("%.-07c", 'f')); // flag -> dot + hyphen + zero {fuck}
 	printf("[%d]\n", printf("%.-07c", 'f'));
-*/
-/*
+
 	// test int
 	printf("[%d]\n", ft_printf("%d", 42)); // %d
 	printf("[%d]\n", printf("%d", 42));
 	printf("[%d]\n", ft_printf("%d", NULL)); // %d
-	printf("[%d]\n", printf("%d", NULL)); // %d
+	printf("[%d]\n", printf("%d", NULL));
 	printf("[%d]\n", ft_printf("%.0d", 43)); // flag -> dot
 	printf("[%d]\n", printf("%.0d", 43));
 	printf("[%d]\n", ft_printf("%.6d", 44)); // flag -> dot
@@ -150,13 +150,12 @@ int main()
 	printf("[%d]\n", ft_printf("%.-08d", 2222)); // flag -> dot + hyphen + zero {fuck}
 	printf("[%d]\n", printf("%.-08d", 2222));
 	return (1);
-*/
-/*
+
 	// test uint
 	printf("[%d]\n", ft_printf("%u", 42)); // %u
 	printf("[%d]\n", printf("%u", 42));
-	printf("[%d]\n", ft_printf("%u", NULL)); // %d
-	printf("[%d]\n", printf("%u", NULL)); // %d
+	printf("[%d]\n", ft_printf("%u", NULL)); // %u
+	printf("[%d]\n", printf("%u", NULL));
 	printf("[%d]\n", ft_printf("%.0u", 43)); // flag -> uot
 	printf("[%d]\n", printf("%.0u", 43));
 	printf("[%d]\n", ft_printf("%.6u", 44)); // flag -> dot
@@ -199,13 +198,13 @@ int main()
 	printf("[%d]\n", printf("%.0-7u", 1347));
 	printf("[%d]\n", ft_printf("%.-08u", 2222)); // flag -> dot + hyphen + zero {fuck}
 	printf("[%d]\n", printf("%.-08u", 2222));
-*/
-/*
+
+
 	// test hex (lower)
-	printf("[%d]\n", ft_printf("%x", 42)); // %u
+	printf("[%d]\n", ft_printf("%x", 42)); // %x
 	printf("[%d]\n", printf("%x", 42));
-	printf("[%d]\n", ft_printf("%x", NULL)); // %d
-	printf("[%d]\n", printf("%x", NULL)); // %d
+	printf("[%d]\n", ft_printf("%x", NULL)); // %x
+	printf("[%d]\n", printf("%x", NULL));
 	printf("[%d]\n", ft_printf("%.1x", 43)); // flag -> uot
 	printf("[%d]\n", printf("%.1x", 43));
 	printf("[%d]\n", ft_printf("%.6x", 44)); // flag -> dot
@@ -248,13 +247,14 @@ int main()
 	printf("[%d]\n", printf("%.0-7x", 1347));
 	printf("[%d]\n", ft_printf("%.-08x", 2222)); // flag -> dot + hyphen + zero {fuck}
 	printf("[%d]\n", printf("%.-08x", 2222));
-*/
-/*
+	printf("[%d]\n", ft_printf("%x", LONG_MAX)); // flag -> dot + hyphen + zero {fuck}
+	printf("[%d]\n", printf("%x", LONG_MAX)); // flag -> dot + hyphen + zero {fuck}
+
 	// hex (upper)
-	printf("[%d]\n", ft_printf("%X", 42)); // %u
+	printf("[%d]\n", ft_printf("%X", 42)); // %X
 	printf("[%d]\n", printf("%X", 42));
-	printf("[%d]\n", ft_printf("%X", NULL)); // %d
-	printf("[%d]\n", printf("%X", NULL)); // %d
+	printf("[%d]\n", ft_printf("%X", NULL)); // %X
+	printf("[%d]\n", printf("%X", NULL));
 	printf("[%d]\n", ft_printf("%.1X", 43)); // flag -> uot
 	printf("[%d]\n", printf("%.1X", 43));
 	printf("[%d]\n", ft_printf("%.6X", 44)); // flag -> dot
@@ -297,13 +297,12 @@ int main()
 	printf("[%d]\n", printf("%.0-7X", 1347));
 	printf("[%d]\n", ft_printf("%.-08X", 2222)); // flag -> dot + hyphen + zero {fuck}
 	printf("[%d]\n", printf("%.-08X", 2222));
-*/
-/*
+
 	// address
-	printf("[%d]\n", ft_printf("%p", 42)); // %u
+	printf("[%d]\n", ft_printf("%p", 42)); // %p
 	printf("[%d]\n", printf("%p", 42));
-	printf("[%d]\n", ft_printf("%p", NULL)); // %d
-	printf("[%d]\n", printf("%p", NULL)); // %d
+	printf("[%d]\n", ft_printf("%p", NULL)); // %p
+	printf("[%d]\n", printf("%p", NULL));
 	printf("[%d]\n", ft_printf("%.1p", 43)); // flag -> dot
 	printf("[%d]\n", printf("%.1p", 43));
 	printf("[%d]\n", ft_printf("%.6p", 44)); // flag -> dot
@@ -346,7 +345,16 @@ int main()
 	printf("[%d]\n", printf("%.0-7p", 1347));
 	printf("[%d]\n", ft_printf("%.-08p", 2222)); // flag -> dot + hyphen + zero {fuck}
 	printf("[%d]\n", printf("%.-08p", 2222));
-*/
-
+	printf("[%d]\n", ft_printf("%p", LONG_MAX)); // flag -> dot + hyphen + zero {fuck}
+	printf("[%d]\n", printf("%p", LONG_MAX));
+	printf("[%d]\n", ft_printf("%p", -ULONG_MAX)); // flag -> dot + hyphen + zero {fuck}
+	printf("[%d]\n", printf("%p", -ULONG_MAX)); // flag -> dot + hyphen + zero {fuck}
+  */
+	//printf("[%d]\n", ft_printf("%..d abc %s", 42, "hello"));
+	//printf("[%d]\n", printf("%..d abc %s", 42, "hello")); // gets segfault
+	printf("[%d]\n", ft_printf("%.-d", 42));
+	printf("[%d]\n", printf("%.-d", 42));
+	printf("[%d]\n", ft_printf("%..d", 42));
+	printf("[%d]\n", printf("%..d", 42));
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 23:50:19 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/15 16:48:31 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:55:58 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_print_uint(unsigned int unum, t_flags *f)
 	ret = 0;
 	if (f->dot == true && f->width != 0)
 		ret += ft_print_flag('0', f->width - len);
-	else if (f->zero == true && f->hyphen == false && f->width != 0 && f->dot == false)
+	else if (f->zero && !(f->hyphen) && f->width && !(f->dot))
 		ret += ft_print_flag('0', f->width - len);
 	else if (f->width != 0 && f->hyphen == false)
 		ret += ft_print_flag(' ', f->width - len);

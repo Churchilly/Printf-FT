@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 23:50:35 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/15 12:05:53 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:11:24 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 bool	ft_get_flags(char flag, t_flags *f)
 {
+	if (f->dot == true && flag == '-')
+		return (f->err_hyphen = true, false);
+	if (f->dot == true && flag == '.')
+		return (f->err_dot = true, false);
 	if (flag == '.')
 		return (f->dot = true, true);
 	else if (flag == '#')

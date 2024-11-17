@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:29:06 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/15 16:21:15 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/15 20:32:55 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_print_char(int c, t_flags *f)
 	int	ret;
 
 	ret = 0;
-	if (f->zero == true && f->hyphen == false && f->width != 0 && f->dot == false)
+	if (f->zero == true && f->hyphen == false && f->width != 0 && !(f->dot))
 		ret += ft_print_flag(' ', f->width - 1);
 	else if (f->width != 0 && f->hyphen == false && f->dot == false)
 		ret += ft_print_flag(' ', f->width - 1);

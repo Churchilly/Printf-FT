@@ -6,15 +6,17 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 23:50:21 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/14 19:14:17 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:11:56 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <unistd.h>
 
-static void	ft_reset_flags(t_flags *f)
+static bool	ft_reset_flags(t_flags *f)
 {
+	f->err_hyphen = false;
+	f->err_dot = false;
 	f->hyphen = false;
 	f->zero = false;
 	f->dot = false;
@@ -22,6 +24,7 @@ static void	ft_reset_flags(t_flags *f)
 	f->space = false;
 	f->plus = false;
 	f->width = 0;
+	return (1);
 }
 
 static int	ft_print_format(const char *format)
@@ -39,6 +42,10 @@ static int	ft_print_arg(va_list args, char spec, t_flags *f)
 {
 	int	ret;
 
+	if (f->err_hyphen == true)
+		return (ft_reset_flags(f), write(1, "%.0-", 4));
+	if (f->err_dot == true)
+		return (ft_reset_flags(f), write(1, "%.0.", 4));
 	ret = -1;
 	if (spec == 'd' || spec == 'i')
 		ret = ft_print_int(va_arg(args, int), f);
@@ -65,9 +72,8 @@ static int	ft_process(const char *format, va_list args, t_flags *f)
 
 	len = 0;
 	is_added = 0;
-	while (*format)
+	while (*format && ft_reset_flags(f))
 	{
-		ft_reset_flags(f);
 		if (!is_added)
 			ret += ft_print_format(format);
 		is_added = 1;
@@ -79,6 +85,7 @@ static int	ft_process(const char *format, va_list args, t_flags *f)
 			if (ret == -1)
 				return (-1);
 			len += ret - 1;
+			is_added = 0;
 		}
 		len++;
 		format++;

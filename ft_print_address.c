@@ -6,14 +6,14 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:36:02 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/15 17:03:38 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/17 14:46:26 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <unistd.h>
 
-static int	ft_addresslen(unsigned int address)
+static int	ft_addresslen(unsigned long address)
 {
 	int	len;
 
@@ -28,7 +28,7 @@ static int	ft_addresslen(unsigned int address)
 	return (len);
 }
 
-static int	ft_putaddress(unsigned int address)
+static int	ft_putaddress(unsigned long address)
 {
 	char	c;
 
@@ -40,7 +40,7 @@ static int	ft_putaddress(unsigned int address)
 	return (c = "0123456789abcdef"[address], write(1, &c, 1));
 }
 
-int	ft_print_address(unsigned int address, t_flags *f)
+int	ft_print_address(unsigned long address, t_flags *f)
 {
 	int	ret;
 	int	address_len;
@@ -51,10 +51,10 @@ int	ft_print_address(unsigned int address, t_flags *f)
 	ret = 0;
 	if (f->width > 0 && !(f->hyphen) && !(f->dot) && !(f->zero))
 		ret += ft_print_flag(' ', (f->width - address_len - 2));
-	if (f->plus)
-		ret += write(1, "+", 1);
 	if (f->space)
 		ret += write(1, " ", 1);
+	if (f->plus)
+		ret += write(1, "+", 1);
 	ret += write(1, "0x", 2);
 	if (f->dot == true && f->width != 0)
 		ret += ft_print_flag('0', (f->width - address_len));
