@@ -3,15 +3,8 @@ CFLAGS = -Wall -Werror -Wextra
 AR = ar -rcs
 RM = rm -rf
 
-SRCS =	ft_printf.c			\
-		ft_preprocess.c		\
-		ft_add_toprint.c	\
-		ft_add_char.c		\
-		ft_add_str.c		\
-		ft_add_int.c		\
-		ft_add_uint.c		\
-		ft_add_hex.c		\
-		ft_add_address.c	\
+SRCS =	ft_printf.c \
+		ft_printf_utils.c
 
 OBJ = $(SRCS:.c=.o)
 
