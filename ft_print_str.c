@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:29:22 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/17 15:08:35 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/24 21:15:19 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,22 @@ int	ft_print_str(char *str, t_flags *f)
 	int	ret;
 	int	len;
 
+	if ((f->dot && !f->lenght)
+		|| (f->width < 6 && f->width && !str && f->lenght < 6 && f->lenght)
+		|| (f->lenght < 6 && f->lenght && !str))
+		str = "";
 	if (!str)
-		return (write(1, "(null)", 6));
+		str = "(null)";
 	len = 0;
-	while (str[len])
+	while (str && str[len])
 		len++;
 	ret = 0;
-	if (f->dot == true && len > f->width)
-		len = f->width;
-	else if (f->zero == true && f->hyphen == false && !(f->width) && !(f->dot))
-		ret += ft_print_flag(' ', f->width - len);
-	else if (f->width != 0 && f->hyphen == false && f->dot == false)
+	if (f->dot && len > f->lenght)
+		len = f->lenght;
+	if (f->width && !f->hyphen && len < f->width)
 		ret += ft_print_flag(' ', f->width - len);
 	ret += write(1, str, len);
-	if (f->hyphen == true && f->width && f->dot == false)
+	if (f->hyphen && len < f->width)
 		ret += ft_print_flag(' ', f->width - len);
 	return (ret);
 }

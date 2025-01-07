@@ -1,5 +1,5 @@
 NAME = libftprintf.a
-CFLAGS = -Wall -Werror -Wextra -fPIE
+CFLAGS = -Wall -Werror -Wextra
 AR = ar -rcs
 RM = rm -rf
 
@@ -19,6 +19,8 @@ all:	$(NAME)
 $(NAME):	$(OBJ)
 	$(AR) $(NAME) $(OBJ)
 
+bonus: all
+
 clean:
 	$(RM) $(OBJ)
 
@@ -27,4 +29,4 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re

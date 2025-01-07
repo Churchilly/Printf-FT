@@ -6,7 +6,7 @@
 /*   By: yusudemi <yusudemi@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:45:48 by yusudemi          #+#    #+#             */
-/*   Updated: 2024/11/15 16:52:11 by yusudemi         ###   ########.fr       */
+/*   Updated: 2024/11/24 17:36:07 by yusudemi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,48 @@ static int	ft_puthex(unsigned int hex, char *hexset)
 	return (write(1, &c, 1));
 }
 
-int	ft_print_hex(unsigned int hex, char spec, t_flags *f)
+static int	ft_handle_pre_flags(t_flags *f, int print_len,
+								int hex_len, char hash_spec)
+{
+	int	ret;
+
+	ret = 0;
+	if (f->width > print_len && !(f->zero || f->hyphen))
+		ret += ft_print_flag(' ', (f->width - print_len));
+	if (f->zero && f->width > print_len && f->dot)
+		ret += ft_print_flag(' ', f->width - print_len);
+	if (hash_spec == 'x' && f->hash)
+		ret += write(1, "0x", 2);
+	else if (hash_spec == 'X' && f->hash)
+		ret += write(1, "0X", 2);
+	if (f->zero && f->width > print_len && !f->dot)
+		ret += ft_print_flag('0', f->width - print_len);
+	if (f->dot)
+		ret += ft_print_flag('0', f->lenght - hex_len);
+	return (ret);
+}
+
+int	ft_print_hex(unsigned int hex, char spec, t_flags *f, char *hexset)
 {
 	int		ret;
 	int		hexlen;
-	char	*hexset;
+	int		print_len;
 
-	hexlen = ft_hexlen(hex);
 	ret = 0;
-	if (f->dot == true && f->width != 0)
-		ret += ft_print_flag('0', (f->width - hexlen));
-	else if (f->zero == true && f->hyphen == false && f->width != 0)
-		ret += ft_print_flag('0', (f->width - hexlen));
-	else if (f->width != 0 && f->hyphen == false)
-		ret += ft_print_flag(' ', (f->width - hexlen));
-	if (f->hash == true)
-		ret += write(1, "0x", 2);
-	if (spec == 'x')
-		hexset = "0123456789abcdef";
-	else
-		hexset = "0123456789ABCDEF";
-	ret += ft_puthex(hex, hexset);
-	if (f->hyphen == true && f->width && f->dot == false)
-		ret += ft_print_flag(' ', (f->width - hexlen));
+	hexlen = ft_hexlen(hex);
+	if (hex == 0 && f->dot && !f->lenght && f->width)
+		f->width++;
+	print_len = hexlen;
+	if (f->dot && f->lenght > hexlen)
+		print_len = f->lenght;
+	if (f->hash && hex != 0)
+		print_len += 2;
+	else if (f->hash && hex == 0)
+		spec = 0;
+	ret += ft_handle_pre_flags(f, print_len, hexlen, spec);
+	if (!(hex == 0 && f->dot && !f->lenght))
+		ret += ft_puthex(hex, hexset);
+	if (f->hyphen)
+		ret += ft_print_flag(' ', (f->width - print_len));
 	return (ret);
 }
